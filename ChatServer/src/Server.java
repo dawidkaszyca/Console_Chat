@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -13,19 +14,23 @@ public class Server {
 	public static void main(String[] args) {
 		Server s=new Server();
 		s.startServer();
+		
 	}
 
 	public void startServer() { //³¹czenie u¿ytkowników do serwera
 		userList=new ArrayList();
 		
 		try {
-			ServerSocket serverSocket= new  ServerSocket(5000); //nr portu 
+			ServerSocket serverSocket= new ServerSocket(5000);//nr portu 
 			
 			while(true) {
 				Socket socket = serverSocket.accept();		//akceptujemy po³aczenia do portu 5000
 				System.out.println("Connected:" + serverSocket);
 				printWritter = new PrintWriter(socket.getOutputStream()); 
 				userList.add(printWritter); //ka¿dy klient jest osobnym obiektem do wysy³ania wiadomosci	
+				
+				Thread t =new Thread(new ServerUser(socket));
+				t.start();
 			}
 		}
 		catch (Exception e){
@@ -43,21 +48,18 @@ public class Server {
 				System.out.println("Connected.");
 				socket = socketUser;
 				bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				Thread t =new Thread(new ServerUser(socket));
-				t.start();
 			}
 			catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
-		
 		@Override
 		public void run() {
 			String message;
 			PrintWriter pw = null;
 			try {
 				while((message = bufferedReader.readLine()) != null) {
-					System.out.println("received >> ");
+					System.out.println("received >> " + message);
 					Iterator it=userList.iterator();
 					while(it.hasNext()) {
 						pw = (PrintWriter)it.next();
@@ -69,6 +71,5 @@ public class Server {
 			catch(Exception e) {
 			}
 		}
-		
 	}
 }
