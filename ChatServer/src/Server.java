@@ -11,11 +11,11 @@ public class Server {
 	PrintWriter printWritter;
 	
 	public static void main(String[] args) {
-	
-
+		Server s=new Server();
+		s.startServer();
 	}
 
-	public void startServer() {
+	public void startServer() { //³¹czenie u¿ytkowników do serwera
 		userList=new ArrayList();
 		
 		try {
@@ -25,19 +25,15 @@ public class Server {
 				Socket socket = serverSocket.accept();		//akceptujemy po³aczenia do portu 5000
 				System.out.println("Connected:" + serverSocket);
 				printWritter = new PrintWriter(socket.getOutputStream()); 
-				userList.add(printWritter); //ka¿dy klient jest osobnym obiektem do wysy³ania wiadomosci
-				
+				userList.add(printWritter); //ka¿dy klient jest osobnym obiektem do wysy³ania wiadomosci	
 			}
 		}
 		catch (Exception e){
 			e.printStackTrace();	
 		}
-		
-		
-		
 	}
 	
-	class ServerUser implements Runnable {
+	class ServerUser implements Runnable { //odbieranie i wysy³anie wiadomoœci
 
 		Socket socket;
 		BufferedReader bufferedReader; // odczytuje wiadomoœci danego u¿ytkownika
@@ -47,6 +43,8 @@ public class Server {
 				System.out.println("Connected.");
 				socket = socketUser;
 				bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				Thread t =new Thread(new ServerUser(socket));
+				t.start();
 			}
 			catch(Exception ex) {
 				ex.printStackTrace();
@@ -61,8 +59,11 @@ public class Server {
 				while((message = bufferedReader.readLine()) != null) {
 					System.out.println("received >> ");
 					Iterator it=userList.iterator();
-					
-					
+					while(it.hasNext()) {
+						pw = (PrintWriter)it.next();
+						pw.println(message);
+						pw.flush(); 	//wys³anie wiadomoœci
+					}
 				}
 			}
 			catch(Exception e) {
