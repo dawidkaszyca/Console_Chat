@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Scanner;
+import java.util.Map;
+import java.util.Random;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -8,18 +10,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 public class Server {
 
-	ArrayList userList;
+	ArrayList<PrintWriter> userList;
 	PrintWriter printWritter;
 	
 	public static void main(String[] args) {
 		Server s=new Server();
-		s.startServer();
-		
+		s.startServer();	
 	}
 
 	public void startServer() { //³¹czenie u¿ytkowników do serwera
-		userList=new ArrayList();
-		
+		userList=new ArrayList<PrintWriter>();
+		BufferedReader bufferedReader;
+		Random r=new Random();
 		try {
 			ServerSocket serverSocket= new ServerSocket(5000);//nr portu 
 			
@@ -27,8 +29,8 @@ public class Server {
 				Socket socket = serverSocket.accept();		//akceptujemy po³aczenia do portu 5000
 				System.out.println("Connected:" + serverSocket);
 				printWritter = new PrintWriter(socket.getOutputStream()); 
-				userList.add(printWritter); //ka¿dy klient jest osobnym obiektem do wysy³ania wiadomosci	
-				
+
+				userList.add(printWritter); //ka¿dy klient jest osobnym obiektem do wysy³ania wiadomosci
 				Thread t =new Thread(new ServerUser(socket));
 				t.start();
 			}
@@ -60,7 +62,8 @@ public class Server {
 			try {
 				while((message = bufferedReader.readLine()) != null) {
 					System.out.println("received >> " + message);
-					Iterator it=userList.iterator();
+					Iterator<PrintWriter> it=userList.iterator();
+					
 					while(it.hasNext()) {
 						pw = (PrintWriter)it.next();
 						pw.println(message);

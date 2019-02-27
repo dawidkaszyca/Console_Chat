@@ -2,12 +2,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Random;
 import java.util.Scanner;
 
 public class User {
 
 	public static final int PORT = 5000;		 //port servera
-	public static final String IP = "127.0.0.1"; //ip server
+	public static final String IP = "192.168.1.7"; //ip server
 	
 	BufferedReader bufferedReader;
 	String userName;
@@ -22,10 +23,13 @@ public class User {
 		System.out.println("State your name:");
 		userName=sc.nextLine();
 		String message;
+		Random r=new Random();
+		int nick;
+		nick=r.nextInt(5000-1)+1;
+		userName=userName+""+nick;
 		try {
 			Socket socket = new Socket(IP,PORT); //³aczymy siê z danym ip,portem
 			System.out.println("Connected to " + socket);
-			
 			PrintWriter printWritter = new PrintWriter(socket.getOutputStream());
 			bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
@@ -40,17 +44,15 @@ public class User {
 					printWritter.flush();
 				}
 				else {
-					printWritter.println(userName+ "disconnected");
+					printWritter.println(userName+" disconnected");
 					printWritter.flush();
 					printWritter.close();
 					sc.close();
 					socket.close();
 				}
-
 			}
 		}
-		catch(Exception e){
-			
+		catch(Exception e){	
 		}
 	}
 
@@ -71,8 +73,6 @@ public class User {
 			catch(Exception e) {
 				System.out.println("Connection closed.");
 			}
-			
 		}
-		
 	}
 }
