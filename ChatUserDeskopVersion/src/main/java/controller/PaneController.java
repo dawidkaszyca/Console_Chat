@@ -45,6 +45,7 @@ public class PaneController {
 				while((message=bufferedReader.readLine())!=null) {
 					String subString[]=message.split(":");
 					if(!subString[0].equals(userName)) {
+						System.out.println(message);
 						ssField.setText(ssField.getText()+"\n"+message);
 					}
 				}
@@ -132,7 +133,7 @@ public class PaneController {
 				
     		}
     		else {
-				printWritter.println(userName+ ":" +message);
+				printWritter.println(userName+ ": " +message);
 				printWritter.flush();
 				ssField.setText(ssField.getText()+"\n"+"You : "+message);
 	    		
