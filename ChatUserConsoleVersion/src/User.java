@@ -20,7 +20,7 @@ public class User {
 
 	public void startUser() {
 		Scanner sc=new Scanner(System.in);
-		System.out.println("State your name:");
+		System.out.println("State your nickname:");
 		userName=sc.nextLine();
 		String message;
 		Random r=new Random();
@@ -40,7 +40,7 @@ public class User {
 				System.out.print(">> ");
 				message=sc.nextLine();
 				if(!message.equalsIgnoreCase("q")){
-					printWritter.println(userName+ ":" +message);
+					printWritter.println(userName+ " : " +message);
 					printWritter.flush();
 				}
 				else {
@@ -49,6 +49,7 @@ public class User {
 					printWritter.close();
 					sc.close();
 					socket.close();
+					
 				}
 			}
 		}

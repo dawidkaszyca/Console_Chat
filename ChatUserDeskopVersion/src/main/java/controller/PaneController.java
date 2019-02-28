@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -78,7 +79,8 @@ public class PaneController {
     @FXML
     private TextArea ssField;
 
-
+    Thread t;
+    
     @FXML
     void clickbutton(ActionEvent event) {
     	nick = nickText.getText();
@@ -102,8 +104,6 @@ public class PaneController {
     			System.out.println("Server is offline");
     		    System.exit(0);
     		}
-    		
-    	System.out.println(nick);
     	Vbox.setVisible(false);
     	vBoxChat.setVisible(true);
     	sentButton.setVisible(true);
@@ -124,12 +124,20 @@ public class PaneController {
     		
     	}
     	if(!message.isEmpty()) {
-    		
-			printWritter.println(userName+ ":" +message);
-			printWritter.flush();
-			ssField.setText(ssField.getText()+"\n"+"You : "+message);
-    		
-    		messageText.setText("");
+    		if(message.equals("exit")) {
+    			printWritter.println(userName+" disconnected");
+				printWritter.flush();
+				printWritter.close();;
+				System.exit(0);
+				
+    		}
+    		else {
+				printWritter.println(userName+ ":" +message);
+				printWritter.flush();
+				ssField.setText(ssField.getText()+"\n"+"You : "+message);
+	    		
+	    		messageText.setText("");
+    	}
     	}
     	
     }
