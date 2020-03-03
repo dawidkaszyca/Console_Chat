@@ -1,0 +1,12 @@
+
+esquid:UselessImportCheck
+"5Remove this unused import 'javafx.event.ActionEvent'.(î•¯¼ıÿÿÿÿ8«²–í‡.
+`squid:S2095J"DUse try-with-resources or close this "Socket" in a "finally" clause.(û„™úşÿÿÿÿ
+lsquid:S001163"ORename this field "Vbox" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŒÚØŸúÿÿÿÿ
+T
+squid:S106R"9Replace this use of System.out or System.err by a logger.(ôÉ”àşÿÿÿÿ
+Asquid:S00108d")Either remove or fill this block of code.(”ı¾
+Asquid:S00108)")Either remove or fill this block of code.(”ı¾
+4squid:S2119E"Save and re-use this "Random".(¼İÅf
+O
+squid:S106%"9Replace this use of System.out or System.err by a logger.(Áš¬¸

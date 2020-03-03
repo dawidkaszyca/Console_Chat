@@ -1,0 +1,17 @@
+
+V
+squid:S106-"9Replace this use of System.out or System.err by a logger.(ô¦–»8ºÒºŒŠ.
+O
+squid:S106E"9Replace this use of System.out or System.err by a logger.(ô¦–»
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(šùÛ»üÿÿÿÿ
+O
+squid:S106I"9Replace this use of System.out or System.err by a logger.(ì¤ğÁ
+Isquid:S1481",Remove this unused "message" local variable.(ó—Ø.8ºÒºŒŠ.
+T
+squid:S106D"9Replace this use of System.out or System.err by a logger.(øºÑûúÿÿÿÿ
+4squid:S2119"Save and re-use this "Random".(¼İÅf
+Asquid:S00108&")Either remove or fill this block of code.(”ı¾
+N
+squid:S106"9Replace this use of System.out or System.err by a logger.(ï ÷H
+9squid:S3626%"Remove this redundant jump.(ûÁİ…8ºÒºŒŠ.
